@@ -21,7 +21,7 @@ func push(list *node, new_data string) {
 
 func print_list(list *node) {
 	iter := list
-	for iter.next != nil {
+	for iter != nil {
 		fmt.Println(iter.data)
 		iter = iter.next
 	}
