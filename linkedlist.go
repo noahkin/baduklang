@@ -48,43 +48,43 @@ func main() {
 		next: nil,
 	}
 
-    slice := make([]string, 1)
-    slice[0] = "data"
+	slice := make([]string, 1)
+	slice[0] = "data"
 
-    var array [10]string
-    array[0] = "data"
+	var array [10]string
+	array[0] = "data"
 
-    list_chan := make(chan string)
-    slice_chan := make(chan string)
-    array_chan := make(chan string)
+	list_chan := make(chan string)
+	slice_chan := make(chan string)
+	array_chan := make(chan string)
 
-    go func() {
-        for i := 1; i < 10; i++ {
-            push(&list, "data")
-        }
-        list_chan <- "list"
-    }()
-    go func() {
-        for i := 1; i < 10; i++ {
-            slice = append(slice, "data")
-        }
-        slice_chan <- "slice"
-    }()
-    go func() {
-        for i := 1; i < 10; i++ {
-            array[i] = "data"
-        }
-        array_chan <- "array"
-    }()
+	go func() {
+		for i := 1; i < 10; i++ {
+			push(&list, "data")
+		}
+		list_chan <- "list"
+	}()
+	go func() {
+		for i := 1; i < 10; i++ {
+			slice = append(slice, "data")
+		}
+		slice_chan <- "slice"
+	}()
+	go func() {
+		for i := 1; i < 10; i++ {
+			array[i] = "data"
+		}
+		array_chan <- "array"
+	}()
 
-    for i := 0; i < 3; i++ {
-        select {
-            case list_msg := <-list_chan:
-                fmt.Println(list_msg)
-            case slice_msg := <-slice_chan:
-                fmt.Println(slice_msg)
-            case array_msg := <-array_chan:
-                fmt.Println(array_msg)
-        }
-    }
+	for i := 0; i < 3; i++ {
+		select {
+		case list_msg := <-list_chan:
+			fmt.Println(list_msg)
+		case slice_msg := <-slice_chan:
+			fmt.Println(slice_msg)
+		case array_msg := <-array_chan:
+			fmt.Println(array_msg)
+		}
+	}
 }
