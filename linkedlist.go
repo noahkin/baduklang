@@ -61,23 +61,23 @@ func main() {
 	go func() {
 		for i := 1; i < 10; i++ {
 			push(&list, "data")
+		    list_chan <- "list"
 		}
-		list_chan <- "list"
 	}()
 	go func() {
 		for i := 1; i < 10; i++ {
 			slice = append(slice, "data")
+		    slice_chan <- "slice"
 		}
-		slice_chan <- "slice"
 	}()
 	go func() {
 		for i := 1; i < 10; i++ {
 			array[i] = "data"
+		    array_chan <- "array"
 		}
-		array_chan <- "array"
 	}()
 
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 27; i++ {
 		select {
 		case list_msg := <-list_chan:
 			fmt.Println(list_msg)
